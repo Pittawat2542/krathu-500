@@ -256,7 +256,6 @@ if __name__ == '__main__':
         post_collection()
     if not path.exists('comments.csv'):
         comment_collection()
-
     else:
         pass
 
