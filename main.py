@@ -7,7 +7,6 @@ import datetime
 import time
 from os import path
 import re
-import unicodedata
 
 import pytz
 
@@ -28,24 +27,19 @@ browser = webdriver.Chrome(service=service)
 
 
 # Text Preprocessing
-def remove_URL(sample):
-    """Remove URLs from a sample string"""
-    return re.sub(r"http\S+", "", sample)
+def pre_process(text):
+    emoji_pattern = re.compile("["
+                               u"\U0001F600-\U0001F64F"
+                               u"\U0001F300-\U0001F5FF"
+                               u"\U0001F680-\U0001F6FF"
+                               u"\U0001F1E0-\U0001F1FF"
+                               "]+", flags=re.UNICODE)
 
+    url_pattern = re.compile("http\S+")
 
-def remove_non_ascii(words):
-    """Remove non-ASCII characters from list of tokenized words"""
-    new_words = []
-    for word in words:
-        new_word = unicodedata.normalize('NFKD', word).encode('ascii', 'ignore').decode('utf-8', 'ignore')
-        new_words.append(new_word)
-    return new_words
+    text = url_pattern.sub(r'', text)
 
-
-def pre_process(sample):
-    sample = remove_URL(sample)
-    sample = remove_non_ascii(sample)
-    return " ".join(sample)
+    return emoji_pattern.sub(r'', text)
 
 
 # Utilities
@@ -242,9 +236,9 @@ def comment_collection():
                 'reply_to': post.post_id,
             })
 
-        post.comment_count = len(comments) - 1
-        post.published_date = published_at.strftime('%Y-%m-%dT%H:%M:%S.%f%z')
-        print(f'Done {idx + 1} post(s) from {len(posts_df)} posts')
+        posts_df.loc[idx, 'comment_count'] = len(comments) - 1
+        posts_df.loc[idx, 'published_date'] = published_at.strftime('%Y-%m-%dT%H:%M:%S.%f%z')
+        print(f'{int((idx + 1) / len(posts_df) * 100)}% - Done {idx + 1} post(s) from {len(posts_df)} posts')
 
     posts_df.to_csv('posts.csv')
     comments_df = pd.DataFrame(comments)
