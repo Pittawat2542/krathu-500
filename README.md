@@ -8,6 +8,7 @@ A dataset of post-comment on Pantip, a popular Thai web board.
 `post-processing/` folder hosts post-processing script and result.
 `small-dataset-generator/` folder contains utility script for generating a small version of dataset.
 `labeled/` folder contains labeled data.
+`baseline-model/` contains code for three basedline model (LSTM, CNN, BERT) trained on the labeled dataset.
 
 ## Dataset file
 The final version of the datasets is located at `post-processing/posts.csv` and `post-processing/comments.csv`. You can also grab the unprocessed version of the dataset at `posts.csv` and `comments.csv`.
