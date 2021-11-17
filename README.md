@@ -6,6 +6,7 @@ A dataset of post-comment on Pantip, a popular Thai web board.
 `main.py` hosts all web crawler code for both posts and comments.
 `example/` folder hosts an example on how to use dataset with machine learning techniques with result. Inside the folder also contains the result of the program.
 `post-processing/` folder hosts post-processing script and result.
+`small-dataset-generator/` folder contains utility script for generating a small version of dataset.
 `labeled/` folder contains labeled data.
 
 ## Dataset file
