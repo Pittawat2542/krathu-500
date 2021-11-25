@@ -36,7 +36,7 @@ There are three possible labels for setiment labeling. POS for positive comments
 - Mixture of positive and negative stories
 - Does not belong to either POS or NEG
 
-## Anotator Agreement
+## Annotator Agreement
 You can help contribute to the annotated corpus by either
 
 1. Annotate other parts of the dataset
